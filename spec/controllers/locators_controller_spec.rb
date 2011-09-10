@@ -7,16 +7,24 @@ describe LocatorsController do
   end
 
   def invalid_attributes
-    { :url => 'http://localhost:3000/members/asdf/asdf' }
+    { :url => 'ht://localhost:3000/members/asdf/asdf' }
+  end
+
+  def random_url
+    protocol     = "http://"
+    domain_name  = "www." + Faker::Internet.domain_name
+    user_name    = "/" + Faker::Internet.user_name
+    query_string = "?first=this+is+a+field&second=was+it+clear+%28already%29%3F"
+    
+    [ protocol, domain_name, user_name, query_string ].join()
   end
 
   before do
-    # TODO: def random_url
     10.times{ FactoryGirl.create( :locator, :url => random_url ) }
-    valid_hashes = Locator.find( :all ).collect( :base36 )
+    valid_hashes = Locator.find( :all ).collect( &:base36 )
     invalid_hashes = ['123','AsxsQ4','KKlask','Am5f%7']
     # make sure that invalid_hashes are not valid
-    invalid_hashes.select{|x| !( hashes.include? x ) }
+    invalid_hashes.select{|x| !( valid_hashes.include? x ) }
 
     valid_hash, invalid_hash = valid_hashes.shuffle.first, invalid_hashes.shuffle.first
   end
@@ -28,7 +36,7 @@ describe LocatorsController do
       response.should be_success
     end
 
-    it "should accepts @locator as a new instance of Locator" do
+    it "should accept @locator as a new instance of Locator" do
       get :new
       assigns( :locator ).should be_a_new( Locator )
       assigns( :locator ).id.should be_nil 
