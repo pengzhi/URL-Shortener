@@ -1,5 +1,6 @@
 class LocatorsController < ApplicationController
   def new
+    
   end
 
   def create
