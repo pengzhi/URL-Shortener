@@ -20,7 +20,7 @@ describe LocatorsController do
   end
 
   before do
-    hostname =  request.protocol + request.host
+    hostname = request.protocol + request.host
     10.times{ FactoryGirl.create( :locator, :url => random_url ) }
     
       valid_hashes = Locator.find( :all ).collect( &:base36 )

@@ -1,4 +1,5 @@
 UrlShortener::Application.routes.draw do
+  
   root :to => "locators#new"
 
   match '/:hash', { :controller => :locators, :action => :show } 
