@@ -7,7 +7,7 @@ describe LocatorsController do
   end
 
   def invalid_attributes
-    { :url => 'ht://localhost:3000/members/asdf/asdf' }
+    { :url => nil }
   end
 
   def random_url
@@ -20,13 +20,15 @@ describe LocatorsController do
   end
 
   before do
+    hostname =  request.protocol + request.host
     10.times{ FactoryGirl.create( :locator, :url => random_url ) }
-    valid_hashes = Locator.find( :all ).collect( &:base36 )
+    
+      valid_hashes = Locator.find( :all ).collect( &:base36 )
     invalid_hashes = ['123','AsxsQ4','KKlask','Am5f%7']
     # make sure that invalid_hashes are not valid
     invalid_hashes.select{|x| !( valid_hashes.include? x ) }
 
-    valid_hash, invalid_hash = valid_hashes.shuffle.first, invalid_hashes.shuffle.first
+    @valid_hash, @invalid_hash = valid_hashes.shuffle.first, invalid_hashes.shuffle.first
   end
   
   describe "(GET) NEW" do
@@ -62,8 +64,8 @@ describe LocatorsController do
       it "should redirects to the new page with the url shortened displayed in flash" do
         post :create, :locator => valid_attributes
 
-        response.flash[:warning].should eql( Locator.last.shortened_url )
-        response.should redirect_to( :new )
+        request.flash[:success].should eql( Locator.last.shortened_url )
+        response.should redirect_to( '/' )
       end
 
     end
@@ -98,7 +100,7 @@ describe LocatorsController do
   describe "(GET) SHOW" do
 
     it "should assign @locators and @locator" do
-      get :show, :hash => valid_hash
+      get :show, :hash => @valid_hash
       locators = Locator.where( :base36 => valid_hase )
       locator  = locators.first
       assigns( :locators ).should eq( locators )
@@ -108,14 +110,14 @@ describe LocatorsController do
     it "should increment count/log referrer"
 
     it "should redirect to actual url with valid hash" do
-      get :show, :hash => valid_hash
+      get :show, :hash => @valid_hash
       assigns( :locators ).size.should eq(1)
       assigns( :locator ).class.should eq( Locator )
       response.should redirect_to( assigns(:locator).url )
     end
     
     it "should redirect to NEW with invalid hash" do
-      get :show, :hash => invalid_hash
+      get :show, :hash => @invalid_hash
       assigns( :locator ).should eq( nil )
       response.should redirect_to( :new )
     end
