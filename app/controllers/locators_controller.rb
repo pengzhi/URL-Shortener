@@ -16,12 +16,18 @@ class LocatorsController < ApplicationController
 
   def show
     @locators = Locator.where( :base36 => params[:hash] )
-    @locator  = @locators.first
+    @locator  = @locators.first # there should only be one element in the array
     
-    redirect_to @locatar.url
+    if @locator 
+      redirect_to @locator.url
+    else
+      flash[:error] = 'Invalid address entered'
+      redirect_to :action => :new
+    end
   end
 
   def index
+    @locators = Locator.all
   end
 
 end
