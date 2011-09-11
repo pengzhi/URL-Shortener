@@ -1,4 +1,3 @@
-<% form_for @locator do |f| %>
-  <%= f.text_area :url %>
-  <%= f.submit %>
-<% end %>
+<% @locators.each do |locator| -%>
+  <%= locator.base36 %>
+<% end -%>

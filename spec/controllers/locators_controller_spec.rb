@@ -98,6 +98,9 @@ describe LocatorsController do
   end
   
   describe "(GET) SHOW" do
+    before do
+      @referrer = Locator.base36( @valid_hash )[0].referrers.create(:name => request.referrer)
+    end
 
     it "should assign @locators and @locator, there should only be one element in the array" do
       get :show, :hash => @valid_hash
@@ -108,17 +111,8 @@ describe LocatorsController do
     end
     
     it "should increment count for referrer if it exists" do
-      expect{
-        get :show, :hash => @valid_hash  
-      }.to change{ 
-        Locator.base36( @valid_hash )[0].referrers.find( :first, :conditions => ["name = ?", request.referer] ).hit
-      }.by( 1 )
-    end
-
-    it "should add referrer if it doesn't exist" do
-      expect{ 
-        get :show, :hash => @valid_hash
-      }.to change{ Locator.base36( @valid_hash )[0].referrers.count }.by( 1 )
+      get :show, :hash => @valid_hash  
+      assigns(:referrer).hit.should eq( @referrer.hit + 1 ) 
     end
 
     it "should redirect to actual url with valid hash" do
@@ -134,6 +128,14 @@ describe LocatorsController do
       response.should redirect_to( :action => :new )
     end
 
+  end
+
+  describe "(GET) SHOW" do
+    it "should add referrer if it doesn't exist" do
+      expect{ 
+        get :show, :hash => @valid_hash
+      }.to change{ Locator.base36( @valid_hash )[0].referrers.count }.by( 1 )
+    end
   end
 
   describe "(GET) INDEX" do

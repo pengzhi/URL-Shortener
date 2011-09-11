@@ -17,8 +17,11 @@ class LocatorsController < ApplicationController
   def show
     @locators = Locator.base36( params[:hash] )
     @locator  = @locators.first # there should only be one element in the array
-    
+
     if @locator 
+      @referrer = Referrer.find_or_create_by_name_and_locator_id( request.referrer, @locator.id )
+      @referrer.hit += 1
+      @referrer.save
       redirect_to @locator.url
     else
       flash[:error] = 'Invalid address entered'
@@ -27,7 +30,7 @@ class LocatorsController < ApplicationController
   end
 
   def index
-    @locators = Locator.all
+    @locators = Locator.all( :include => :referrers)
   end
 
 end

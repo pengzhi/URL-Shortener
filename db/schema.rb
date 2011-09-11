@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20110911055337) do
   create_table "referrers", :force => true do |t|
     t.string   "name"
     t.integer  "locator_id"
-    t.integer  "hit"
+    t.integer  "hit",        :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

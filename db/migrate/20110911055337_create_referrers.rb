@@ -3,7 +3,7 @@ class CreateReferrers < ActiveRecord::Migration
     create_table :referrers do |t|
       t.string :name
       t.integer :locator_id
-      t.integer :hit
+      t.integer :hit, :default => 0
 
       t.timestamps
     end
