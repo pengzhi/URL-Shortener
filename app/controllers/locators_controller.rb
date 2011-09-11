@@ -15,7 +15,7 @@ class LocatorsController < ApplicationController
   end
 
   def show
-    @locators = Locator.where( :base36 => params[:hash] )
+    @locators = Locator.base36( params[:hash] )
     @locator  = @locators.first # there should only be one element in the array
     
     if @locator 

@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :locator do
-    base36 ''
-    url    ''
+    url 'http://www.schamberger.org/devon.morar?first=this+is+a+field&second=was+it+clear+%28already%29%3F'
   end
 end

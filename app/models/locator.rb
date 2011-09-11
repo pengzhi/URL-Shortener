@@ -1,18 +1,12 @@
 class Locator < ActiveRecord::Base
-  validates_presence_of :base36
   validates_presence_of :url  
   # TODO: validates format of url
+  
+  scope :base36, lambda{ |string| where( :id => string.to_i(36) ) }
 
-  before_validation :generate_base36
-
-  def shortened_url
-    self.base36
+  def base36
+    id.to_s( 36 )
   end
+  alias_method :shortened_url, :base36
 
-  private
-
-  def generate_base36
-    value = ( url.nil? ? nil : "MeoW#{url}" )
-    write_attribute :base36, value
-  end
 end

@@ -101,7 +101,7 @@ describe LocatorsController do
 
     it "should assign @locators and @locator, there should only be one element in the array" do
       get :show, :hash => @valid_hash
-      locators = Locator.where( :base36 => @valid_hash )
+      locators = Locator.base36( @valid_hash )
       locator  = locators.first
       assigns( :locators ).should eq( locators )
       assigns( :locator ).should  eq( locator )
