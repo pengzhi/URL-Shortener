@@ -8,6 +8,6 @@
 
 <% if flash[:success] -%>
   <h3> Success! Your URL is now: </h3>
-  <% actual_link = (%{%s%s/%s} % [ request.protocol, request.host_with_port, flash[:success] ]) -%>
+  <% actual_link = short_url( flash[:success] ) -%>
   <%= link_to actual_link, actual_link, :target => '_blank' %>
 <% end -%>

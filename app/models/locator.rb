@@ -10,5 +10,8 @@ class Locator < ActiveRecord::Base
     id.to_s( 36 )
   end
   alias_method :shortened_url, :base36
-
+  
+  def referrer_hit
+    referrers.collect{ |r| [ r.name, r.hit ] }
+  end
 end

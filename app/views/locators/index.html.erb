@@ -1,3 +1,24 @@
-<% @locators.each do |locator| -%>
-  <%= locator.base36 %>
-<% end -%>
+<h3> Statistics </h3>
+
+<table>
+  <tr>
+    <th> Short URL </th>
+    <th> Referrers </th>
+    <th> Hits </th>
+  </tr>
+  <% @locators.each do |locator| -%>
+    <tr>
+      <td><%= short_url( locator.base36 ) %></td>
+      <td>
+        <% locator.referrer_hit.each do |referrer, hit | -%>
+          <%= referrer %> <br />
+        <% end -%>
+      </td>
+      <td>
+        <% locator.referrer_hit.each do |referrer, hit | -%>
+          <%= hit %> <br />
+        <% end -%>
+      </td>
+    </tr>
+  <% end -%>
+</table>
