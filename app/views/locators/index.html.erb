@@ -1,2 +1,4 @@
-<h1>Locators#index</h1>
-<p>Find me in app/views/locators/index.html.erb</p>
+<% form_for @locator do |f| %>
+  <%= f.text_area :url %>
+  <%= f.submit %>
+<% end %>

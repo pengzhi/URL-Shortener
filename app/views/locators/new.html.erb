@@ -1,2 +1,6 @@
-<h1>Locators#new</h1>
-<p>Find me in app/views/locators/new.html.erb</p>
+<% form_for @locator, :url => { :controller => :locators, :action => :create } do |f| %>
+  <%= f.label 'Paste you url:' %>
+  <%= f.text_area :url %>
+  <%= f.submit 'Generate' %>
+<% end %>
+
