@@ -1,14 +1,14 @@
 UrlShortener::Application.routes.draw do
-  # TODO: 
-  # root that accepts id 
-  # root that redirects to locators#new
+  root :to => "locators#new"
 
-  get "locators/new"
+  match '/:hash', { :controller => :locators, :action => :show } 
+
+  get  "locators/new"
 
   post "locators/create"
 
-  get "locators/show"
+  get  "locators/show"
 
-  get "locators/index"
+  get  "locators/index"
 
 end
