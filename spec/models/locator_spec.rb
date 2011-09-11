@@ -13,7 +13,7 @@ describe Locator do
   end
   
   it "should respond to base36 named scope method" do
-    Locator.should be_respond_to( :base36 )
+    Locator.should respond_to( :base36 )
   end
 
   it "should return the correct record using the base36 scope" do
@@ -24,7 +24,7 @@ describe Locator do
   end
 
   it "should respond to base36 instance method" do
-    @locator.should be_respond_to( :base36 )
+    @locator.should respond_to( :base36 )
   end
 
 end

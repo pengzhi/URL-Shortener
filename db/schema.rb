@@ -10,10 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110910221918) do
+ActiveRecord::Schema.define(:version => 20110911055337) do
 
   create_table "locators", :force => true do |t|
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "referrers", :force => true do |t|
+    t.string   "name"
+    t.integer  "locator_id"
+    t.integer  "hit"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

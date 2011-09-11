@@ -107,7 +107,19 @@ describe LocatorsController do
       assigns( :locator ).should  eq( locator )
     end
     
-    it "should increment count/log referrer"
+    it "should increment count for referrer if it exists" do
+      expect{
+        get :show, :hash => @valid_hash  
+      }.to change{ 
+        Locator.base36( @valid_hash )[0].referrers.find( :first, :conditions => ["name = ?", request.referer] ).hit
+      }.by( 1 )
+    end
+
+    it "should add referrer if it doesn't exist" do
+      expect{ 
+        get :show, :hash => @valid_hash
+      }.to change{ Locator.base36( @valid_hash )[0].referrers.count }.by( 1 )
+    end
 
     it "should redirect to actual url with valid hash" do
       get :show, :hash => @valid_hash

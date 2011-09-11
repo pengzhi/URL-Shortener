@@ -5,7 +5,7 @@
 <% end -%>
 
 <br />
-<% raise flash[:sucsess].inspect %>
+
 <% if flash[:success] -%>
   <h3> Success! Your URL is now: </h3>
   <% actual_link = (%{%s%s/%s} % [ request.protocol, request.host_with_port, flash[:success] ]) -%>

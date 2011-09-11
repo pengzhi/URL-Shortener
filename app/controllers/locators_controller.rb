@@ -1,5 +1,5 @@
 class LocatorsController < ApplicationController
-  def new
+  def new 
    @locator = Locator.new 
   end
 
