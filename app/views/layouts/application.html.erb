@@ -16,7 +16,7 @@
 
 <div class="container">
   <div class="span-2 prepend-2 append-2"> &nbsp; </div>  
-  <div class="span-8 prepend-2 append-2"> <h1>URL Shortener</h1> 
+  <div class="span-12"> <h1>URL Shortener</h1> 
     ( <%= link_to( 'generate', '/' ) %> |  <%= link_to( 'statistics', { :action => 'index' } ) %> ) 
   </div>
   <div class="span-2 prepend-2 append-2 last"> &nbsp; </div>
@@ -25,7 +25,7 @@
   <div class="span-24 last">&nbsp;</div>
 
   <div class="span-2 prepend-2 append-2">&nbsp;</div>  
-  <div class="span-8 prepend-2 append-2"> <%= yield %> </div>
+  <div class="span-12"> <%= yield %> </div>
   <div class="span-2 prepend-2 append-2 last"> &nbsp; </div>
 </div>
 

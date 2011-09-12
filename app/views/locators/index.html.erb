@@ -8,7 +8,10 @@
   </tr>
   <% @locators.each do |locator| -%>
     <tr>
-      <td><%= short_url( locator.base36 ) %></td>
+      <td>
+        <% actual_link = short_url( locator.base36 ) -%>
+        <%= link_to actual_link, actual_link, :target => '_blank' %>
+      </td>
       <td>
         <% locator.referrer_hit.each do |referrer, hit | -%>
           <%= referrer %> <br />

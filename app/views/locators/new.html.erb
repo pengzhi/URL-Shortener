@@ -1,7 +1,7 @@
 <%= form_for @locator, :url => { :controller => :locators, :action => :create } do |f| -%>
-  <%= f.label     'Paste you url:' %>
+  <%= f.label 'Paste you url:' %>
   <%= f.text_area :url %>
-  <%= f.submit    'Generate' %>
+  <%= f.submit 'Generate' %>
 <% end -%>
 
 <br />
