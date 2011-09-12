@@ -3,11 +3,11 @@ require 'spec_helper'
 describe LocatorsController do
 
   def valid_attributes
-    { :url => 'http://localhost:3000/members/asdf/asdf' }
+    FactoryGirl.attributes_for(:locator) 
   end
 
   def invalid_attributes
-    { :url => nil }
+    FactoryGirl.attributes_for(:invalid_locator)
   end
 
   def random_url
